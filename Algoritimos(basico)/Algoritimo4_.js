@@ -26,16 +26,19 @@ class TestRunner {
 
   executarTeste(id, resultado) {
     const findId = this.tests.find((test) => test.id === id);
-    findId.status = resultado;
-    if (findId) {
+
+    if (!findId) {
       return {
-        id: id,
-        sucesso: true,
-        status: resultado,
+        error: new Error(`O ID:${id} não foi encontrado!`),
       };
     }
+
+    findId.status = resultado;
+
     return {
-      error: new Error(`O ID:${id} não foi encontrado!`),
+      id: id,
+      sucesso: true,
+      status: resultado,
     };
   }
 
@@ -44,6 +47,18 @@ class TestRunner {
       return this.tests.filter((test) => test.status === status);
     }
     return [];
+  }
+
+  relatorio() {
+    const testsTrue = this.tests.filter((test) => test.status == "passou");
+    const testsFalse = this.tests.filter((test) => test.status == "falhou");
+    const testsPending = this.tests.filter((test) => test.status == "pendente");
+    return {
+      total: this.tests.length,
+      passou: testsTrue.length,
+      falhou: testsFalse.length,
+      pendente: testsPending.length,
+    };
   }
 }
 
@@ -54,5 +69,6 @@ console.log(runnerTest.adicionarTeste(2, "login"));
 console.log(runnerTest.adicionarTeste(3, "API"));
 console.log(runnerTest.executarTeste(1, "passou"));
 console.log(runnerTest.executarTeste(2, "passou"));
-console.log(runnerTest.executarTeste(3, "passou"));
+console.log(runnerTest.executarTeste(4, "passou"));
 console.log(runnerTest.listarPorStatus("passou"));
+console.log(runnerTest.relatorio());
