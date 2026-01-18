@@ -70,7 +70,11 @@ class ErrorMonitor {
 const newErro = new ErrorMonitor();
 
 console.log(
-  newErro.registrarErro(1, "frontend", "botão de login não funciona")
+  newErro.registrarErro(
+    1, 
+    "frontend", 
+    "botão de login não funciona"
+  )
 );
 console.log(
   newErro.registrarErro(
