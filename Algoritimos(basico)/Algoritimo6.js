@@ -10,7 +10,7 @@ class ErrorMonitor {
         error: new Error(`o id: ${id} ja existe`),
       };
     }
-    if (!tipo == "frontend" || !tipo == "backend" || !tipo == "infra") {
+    if (tipo !== "frontend" && tipo !== "backend" && tipo !== "infra") {
       return {
         error: new Error(`O tipo ${tipo} não é valido`),
       };
